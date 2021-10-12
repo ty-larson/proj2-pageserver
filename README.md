@@ -147,7 +147,7 @@ docker run -d -p 5000:5000 UOCIS-flask-demo
     
 * Update your name and email in the Dockerfile.
 
-* You will submit your `credentials.ini` in canvas (a skeleton is not provided). It should have information on how we should get your Dockerfile and your git repo. Note it __must__ follow the same setup we provided in the past (e.g., use the section `[DEFAULT]` then all the essential keys and values).
+* You will submit your `credentials.ini` in canvas (a skeleton is not provided). It should have information on how we should get your Dockerfile and your git repo. Note it __must__ follow the same setup we provided in the past (e.g., similar to Project-1 where it has the section `[DEFAULT]`, then all the essential keys and values).
 
 # Grading Rubric
 * If your code works as expected: 100 points.
