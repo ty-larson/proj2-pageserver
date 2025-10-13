@@ -168,4 +168,4 @@ docker run -d -p 5000:5000 UOCIS-flask-demo
 # Who do I talk to?
 
 * Maintained by Ram Durairajan, Ziyad Alsaeed.
-* Use our Piazza group for questions. Make them public unless you have a good reason to make them private, so that everyone benefits from answers and discussion. 
+* Use Canvas for questions. Make them public unless you have a good reason to make them private, so that everyone benefits from answers and discussion. 
