@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FILE RETRIEVAL SYSTEM</title>
+    <style>
+        :root {
+            --neon-green: #0f0;
+            --dark-bg: #050505;
+            --scanline-color: rgba(0, 255, 0, 0.05);
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--neon-green);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 2rem;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            text-shadow: 0 0 5px var(--neon-green);
+        }
+
+        /* CRT Screen effects */
+        body::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(18, 16, 16, 0) 50%,
+                var(--scanline-color) 50%
+            );
+            background-size: 100% 4px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .header {
+            border-bottom: 2px solid var(--neon-green);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .terminal {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 1.2rem;
+        }
+
+        .line {
+            display: none; /* Hidden initially for JS animation */
+        }
+
+        .typing-cursor::after {
+            content: '█';
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .status-box {
+            border: 1px solid var(--neon-green);
+            padding: 20px;
+            margin-top: 30px;
+            background: rgba(0, 255, 0, 0.05);
+            display: none; /* Shown at the end */
+            text-align: center;
+            font-size: 2rem;
+            text-transform: uppercase;
+            box-shadow: inset 0 0 10px var(--neon-green);
+        }
+
+        .amaze {
+            color: #fff;
+            text-shadow: 0 0 10px #fff, 0 0 20px var(--neon-green), 0 0 30px var(--neon-green);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <span>UOCIS-322 // PROTOCOL OVERRIDE</span>
+        <span>SYS.TIME: <span id="clock">00:00:00</span></span>
+    </div>
+
+    <div class="terminal" id="terminal">
+        <div class="line">INITIALIZING KERNEL... OK</div>
+        <div class="line">MOUNTING VIRTUAL DRIVES... OK</div>
+        <div class="line">BYPASSING SECURITY PROTOCOLS... OK</div>
+        <div class="line">BOOTING PHASE SHIFT ARMOR... ONLINE</div>
+        <div class="line">ENGAGING ASTROMETRIC CALIBRATIONS... DONE</div>
+        <div class="line">CALCULATING TRAJECTORY VECTORS... OK</div>
+        <div class="line">INITIATING DEEP FILE SCAN...</div>
+        <div class="line">TARGET FILE "name.html" LOCATED IN SECTOR "pages/"</div>
+        <div class="line">EXTRACTING DATA PACKETS...</div>
+    </div>
+
+    <div class="status-box" id="successBox">
+        [ HTTP 200 OK ]<br><br>
+        <span class="amaze">AMAZE! AMAZE! AMAZE!</span><br>
+        FILE SUCCESSFULLY RENDERED.
+    </div>
+
+    <script>
+        // A little clock for the top right
+        setInterval(() => {
+            document.getElementById('clock').innerText = new Date().toLocaleTimeString('en-US', { hour12: false });
+        }, 1000);
+
+        // The overly dramatic typing effect
+        const lines = document.querySelectorAll('.line');
+        const terminal = document.getElementById('terminal');
+        const successBox = document.getElementById('successBox');
+        let currentLine = 0;
+
+        function typeLine() {
+            if (currentLine < lines.length) {
+                const line = lines[currentLine];
+                line.style.display = 'block';
+                line.classList.add('typing-cursor');
+                
+                // Remove cursor from previous line
+                if (currentLine > 0) {
+                    lines[currentLine - 1].classList.remove('typing-cursor');
+                }
+
+                currentLine++;
+                // Randomize typing speed for effect (between 200ms and 800ms)
+                setTimeout(typeLine, Math.random() * 600 + 200);
+            } else {
+                // Finish sequence
+                lines[lines.length - 1].classList.remove('typing-cursor');
+                setTimeout(() => {
+                    successBox.style.display = 'block';
+                }, 500);
+            }
+        }
+
+        // Start sequence
+        setTimeout(typeLine, 500);
+    </script>
+</body>
+</html>

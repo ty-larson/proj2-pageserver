@@ -1,7 +1,7 @@
-FROM python:2.7
-MAINTAINER Ram Durairajan "noemail@website.domain"
+FROM python:3.9-slim
+LABEL maintainer="Ty Larson <tyl@uoregon.edu>"
 RUN apt-get update -y
-RUN apt-get install -y python-pip python-dev build-essential
+RUN apt-get install -y build-essential
 COPY . /app
 WORKDIR /app
 RUN pip install -r requirements.txt
